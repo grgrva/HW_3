@@ -84,32 +84,36 @@ print(f'5. Сокращенное body: {email["short_body"]}')
 # 6. Списки доменов: создайте список личных доменов
 # и список корпоративных доменов. с учетом того что там должны быть только уникальные значение
 
-personal_domens = list(set(
-    [
-        "gmail.com",
-        "list.ru",
-        "yahoo.com",
-        "outlook.com",
-        "hotmail.com",
-        "icloud.com",
-        "yandex.ru",
-        "mail.ru",
-        "list.ru",
-        "bk.ru",
-        "inbox.ru",
-    ]
-))
+personal_domens = list(
+    set(
+        [
+            "gmail.com",
+            "list.ru",
+            "yahoo.com",
+            "outlook.com",
+            "hotmail.com",
+            "icloud.com",
+            "yandex.ru",
+            "mail.ru",
+            "list.ru",
+            "bk.ru",
+            "inbox.ru",
+        ]
+    )
+)
 
-corporat_domens = list(set(
-    [
-        "company.ru",
-        "corporation.com",
-        "university.edu",
-        "organization.org",
-        "company.ru",
-        "business.net",
-    ]
-))
+corporat_domens = list(
+    set(
+        [
+            "company.ru",
+            "corporation.com",
+            "university.edu",
+            "organization.org",
+            "company.ru",
+            "business.net",
+        ]
+    )
+)
 
 print(
     f"6. корпоративные домены: \n {corporat_domens} \n"
@@ -128,7 +132,7 @@ else:
 
 # 8. Проверьте «корпоративность» отправителя: создайте булеву переменную is_corporate, равную результату проверки вхождения домена отправителя в список корпоративных доменов.
 
-is_corporate =  domain in corporat_domens
+is_corporate = domain in corporat_domens
 
 
 print(f'8. "корпоративность" отправителя: {is_corporate}')
