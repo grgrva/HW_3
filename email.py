@@ -41,7 +41,12 @@ email5 = {
 # 1. Создайте словарь email, содержащий следующие поля:
 # "subject" (тема письма), "from" (адрес отправителя), "to" (адрес получателя), "body" (текст письма).
 
-email = email1  # поменять номер в email* и пробежаться по всем вариантами из тестовых данных
+email = {
+    "subject": "  Quarterly Report  ",
+    "from": "  Alice.Cooper@Company.ru ",
+    "to": "   bob_smith@Gmail.com   ",
+    "body": "Hello Bob,\n\tHere is the quarterly report.\n\tPlease review and let me know your feedback.\n\nBest,\nAlice",
+}
 
 
 # 2. Добавьте дату отправки: создайте переменную send_date как текущую дату в формате YYYY-MM-DD и запишите её в email["date"].
@@ -55,11 +60,8 @@ print(f'2. дата отправки: {email["date"]}')
 # 3. Нормализуйте e-mail адреса отправителя и получателя: приведите к нижнему регистру и уберите пробелы по краям.
 # Запишите обратно в email["from"] и email["to"].
 
-email["from"] = email["from"].lower()
-email["to"] = email["to"].lower()
-
-email["from"] = email["from"].strip()
-email["to"] = email["to"].strip()
+email["from"] = email["from"].lower().strip()
+email["to"] = email["to"].lower().strip()
 
 print(f"3. нормализация email:\n" f' from - {email["from"]}\n' f' to - {email["to"]}')
 
@@ -82,7 +84,7 @@ print(f'5. Сокращенное body: {email["short_body"]}')
 # 6. Списки доменов: создайте список личных доменов
 # и список корпоративных доменов. с учетом того что там должны быть только уникальные значение
 
-personal_domens = set(
+personal_domens = list(set(
     [
         "gmail.com",
         "list.ru",
@@ -96,9 +98,9 @@ personal_domens = set(
         "bk.ru",
         "inbox.ru",
     ]
-)
+))
 
-corporat_domens = set(
+corporat_domens = list(set(
     [
         "company.ru",
         "corporation.com",
@@ -107,7 +109,7 @@ corporat_domens = set(
         "company.ru",
         "business.net",
     ]
-)
+))
 
 print(
     f"6. корпоративные домены: \n {corporat_domens} \n"
@@ -117,7 +119,7 @@ print(
 
 # 7. Проверьте что в списке личных и корпоративных доменов нет пересечений: ни один домен не должен входить в оба списка одновременно.
 
-common_domens = personal_domens & corporat_domens
+common_domens = set(personal_domens) & set(corporat_domens)
 if not common_domens:
     print(f"7. нет пересечений в доменах")
 else:
@@ -126,10 +128,8 @@ else:
 
 # 8. Проверьте «корпоративность» отправителя: создайте булеву переменную is_corporate, равную результату проверки вхождения домена отправителя в список корпоративных доменов.
 
-if domain in corporat_domens:
-    is_corporate = True
-else:
-    is_corporate = False
+is_corporate =  domain in corporat_domens
+
 
 print(f'8. "корпоративность" отправителя: {is_corporate}')
 
@@ -137,13 +137,10 @@ print(f'8. "корпоративность" отправителя: {is_corporat
 # 9. Соберите «чистый» текст сообщения без табов и переводов строк: замените "\t" и "\n" на пробел.
 # Сохраните в email["clean_body"].
 
-if not email["body"].split():
-    email["clean_body"] = email["body"]
-    print(f'9. Пустой body')
-else:
-    email["clean_body"] = email["body"].replace("\t", " ")
-    email["clean_body"] = email["clean_body"].replace("\n", " ")
-    print(f'9. Чистый body: \n {email["clean_body"]}')
+email["clean_body"] = email["body"].replace("\t", " ")
+email["clean_body"] = email["clean_body"].replace("\n", " ")
+
+print(f'9. Чистый body: \n {email["clean_body"]}')
 
 
 # 10. Сформируйте текст отправленного письма многострочной f-строкой и сохраните в email["sent_text"]:
@@ -170,14 +167,8 @@ print(f"11. Количество страниц для печати == {pages}")
 
 # 12. создайте переменные is_subject_empty, is_body_empty в котором будет хранится что тема письма содержит данные.
 
-is_subject_empty: bool = False
-is_body_empty: bool = False
-
-if not email["subject"].strip():
-    is_subject_empty = True
-
-if not email["body"].strip():
-    is_body_empty = True
+is_subject_empty = not email["subject"].strip()
+is_body_empty = not email["body"].strip()
 
 print(
     f"12. Пустой заголовок письма == {is_subject_empty} \n"
